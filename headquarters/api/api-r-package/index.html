@@ -1,0 +1,325 @@
+<!doctype html><html lang=en><head><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-129284684-1','auto'),ga('send','pageview'))</script><script async src=https://www.google-analytics.com/analytics.js></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=description content><link rel=icon href=/img/favicon/favicon-support-1.png type=image/png sizes=16x16><link rel=icon href=/img/favicon/favicon-support-1-48-win-ico.png type=image/png sizes=48x48><link rel=icon href=/img/favicon/favicon-support-1-158-General-use-iOS-Android.png type=image/png sizes=152x152><link rel=icon href=/img/favicon/favicon-support-1-196-Chrome-for-Android.png type=image/png sizes=196x196><link rel=icon href=/img/favicon/favicon-support-1-558-win10-tile.png type=image/png sizes=558x558><title>API: R-package</title><link rel=stylesheet href=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css integrity=sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T crossorigin=anonymous><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel=stylesheet><link href=/css/all.css rel=stylesheet><link href=https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css rel=stylesheet></head><body><header class="px-md-3 pt-3"><div class=container><div class=row><div class="mb-3 col-lg-6 col-md-12"><a class="navbar-brand text-white pr-0 mr-0 float-left" href=https://mysurvey.solutions/ target=_blank><img src=/img/logo.png alt="Survey Solutions" class=float-left>
+<span class="float-left ml-2">Survey<br>Solutions</span></a>
+<a class="navbar-text text-white pl-sm-4 ml-sm-4 pl-2 ml-2 float-left" href=https://docs.mysurvey.solutions/>Documentation and knowledge base</a></div><script type=text/template id=my-custom-menu-template>
+    <div class="aa">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="docs-tab" data-toggle="tab" href="#docs" role="tab" aria-controls="docs" aria-selected="true">Articles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="forum-tab" data-toggle="tab" href="#forum" role="tab" aria-controls="forum" aria-selected="false">Forum topics</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="aa-dataset-docs tab-pane fade show active" id="docs" role="tabpanel" aria-labelledby="docs-tab"></div>
+            <div class="aa-dataset-forum tab-pane fade" id="forum" role="tabpanel" aria-labelledby="forum-tab"></div>
+        </div>
+    </div>
+</script><div class="col-lg-6 col-md-12 pt-2 mb-4 mb-lg-3"><form class=form-inline onsubmit=return!1><div class="input-group search"><input type=text class="form-control w-100" placeholder="Have a Question? Ask or enter a search term here." id=aa-search-input></div></form></div></div></div></header><main class="container mb-3"><nav aria-label=breadcrumb><ol class="breadcrumb bg-transparent pl-0"><li class=breadcrumb-item><a href=/>Home</a></li><li class=breadcrumb-item><a href=/headquarters/>Headquarters</a></li><li class=breadcrumb-item><a href=/headquarters/api/>Application Programming Interface (API)</a></li><li class="breadcrumb-item active" aria-current=page>API: R-package</li></ol></nav><div class=mb-4><article class="article d-block w-100"><div class="mb-5 pb-1 d-block w-100 page-title d-flex align-items-end"><h2 class="mb-3 mr-auto pr-3">API: R-package</h2><div class="data text-right">February 9, 2021</div></div><div class=article-content><h1 id=introduction-to-the-survey-solutions-api-r-package>Introduction to the Survey Solutions API R-package</h1><h2 id=why-this-package>Why this package</h2><p>The World Bank&rsquo;s Computer Assisted Survey System (CASS) <strong>Survey Solutions</strong>
+is a powerful tool for high quality data collection and used in many statistical
+offices around the world. Besides the standard GUI, it also comes with a
+powerful API.</p><p>To further facilitate its integration in a fully automated workflow we have
+developed this <a href=https://github.com/michael-cw/SurveySolutionsAPI>R package</a>,
+which covers almost all of the available API calls.</p><p>This article gives you an overview of the functions implemented in this package.</p><p>The package can be considered as being a API &ldquo;bare bone&rdquo;, as it implements the
+<a href=/headquarters/api/api-interactive-description/>Survey Solutions API</a> calls
+without substantial modification. However, this is not true for the data export
+function as well as for the paradata. Modification was necessary to facilitate
+workflow integration. See the details in the corresponding documentation.</p><p>Please be aware, that this package makes heavy use of data.table, and this is
+also continued in this vignette. In case you are not familiar with it yet,
+refer to this <a href=https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html>introduction</a>.</p><h2 id=api-credentials>API credentials</h2><p>To use the API you first need to set-up the API user on your Survey Solutions server.
+See <a href=/headquarters/api/>here</a> for details. After this done, you can use the
+<em>suso_set_key()</em> function, to provide your credentials.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>library(SurveySolutionsAPI)
+suso_clear_keys()
+suso_set_key(<span style=color:#a31515>&#34;https://xxx.mysurvey.solutions&#34;</span>, <span style=color:#a31515>&#34;xxxxxx&#34;</span>, <span style=color:#a31515>&#34;xxxxxxx&#34;</span>)
+suso_keys()
+<span style=color:green>#&gt; $suso</span>
+<span style=color:green>#&gt; $suso$susoServer</span>
+<span style=color:green>#&gt; [1] &#34;https://xxx.mysurvey.solutions&#34;</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; $suso$susoUser</span>
+<span style=color:green>#&gt; [1] &#34;xxxxxx&#34;</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; $suso$susoPass</span>
+<span style=color:green>#&gt; [1] &#34;xxxxxxx&#34;</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; attr(,&#34;class&#34;)</span>
+<span style=color:green>#&gt; [1] &#34;suso_api&#34;</span>
+</code></pre></div><p>After this is done, there is no need to provide the credentials for every API
+call again. They are stored until the end of your current session. There is
+also a function to check if your credentials work.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>suso_PwCheck()
+<span style=color:green>#&gt; Response [https://mcw2.mysurvey.solutions/api/v1/supervisors?limit=200]</span>
+<span style=color:green>#&gt;   Date: 2020-02-25 02:00</span>
+<span style=color:green>#&gt;   Status: 200</span>
+<span style=color:green>#&gt;   Content-Type: application/json; charset=utf-8</span>
+<span style=color:green>#&gt;   Size: 471 B</span>
+</code></pre></div><p>It calls the supervisor API, and returns the response. If the return value is
+200, then your connection and credentials are OK.</p><h2 id=user-management>User Management</h2><p>These functions are particularly useful for survey management, and more details can
+be found in the corresponding vignette on survey management. Lets start with getting
+a list of all supervisors on the server.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>sv &lt;- suso_getSV()
+print(sv)
+<span style=color:green>#&gt;    IsLocked        CreationDate                               UserId      UserName</span>
+<span style=color:green>#&gt; 1:    FALSE 2019-12-12 06:17:59 4a5be68d-e689-4cd6-83b5-32936a02a8f0  Alex_Sup_Rom</span>
+<span style=color:green>#&gt; 2:    FALSE 2019-12-12 09:37:51 4f3f6d63-90aa-4861-a59a-fb2907135618 Alex_Sup_Rom2</span>
+<span style=color:green>#&gt; 3:    FALSE 2019-07-26 03:15:42 8f01a8a6-4f7c-49f1-a276-2af4ea7636bb     Team_2101</span>
+</code></pre></div><p>Your will receive a list of supervisors currently active (not archived) on the server.
+If you take one of the supervisor&rsquo;s <em>id</em> and use the <em>suso_getINT</em> function, you will
+receive all the interviewers in the team.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>int &lt;- suso_getINT(sv_id = sv[3, UserId])
+print(int)
+<span style=color:green>#&gt;    IsLocked        CreationDate         DeviceId                               UserId  UserName</span>
+<span style=color:green>#&gt; 1:    FALSE 2019-07-26 03:16:47 5ca9d1e76d855a78 0d169565-df66-48b4-8c93-3375e21de136 Int1_2101</span>
+<span style=color:green>#&gt; 2:    FALSE 2019-07-26 03:20:42 58ded0cc5de671a2 5ac32a2d-20c5-42b6-a30c-89367d9f65d2 Int2_2101</span>
+<span style=color:green>#&gt; 3:    FALSE 2019-08-09 16:42:47 aab82d9709439494 d1e57346-b13e-47e8-adc1-aaf647711f47 int4_2101</span>
+</code></pre></div><p>To receive more information about a particular user, use the <em>suso_getINT_info</em> function:</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>intinfo &lt;- suso_getINT_info(int_id = int[1, UserId])
+print(intinfo)
+<span style=color:green>#&gt;    SupervisorName                         SupervisorId IsLockedBySupervisor IsLockedByHeadquarters</span>
+<span style=color:green>#&gt; 1:      Team_2101 8f01a8a6-4f7c-49f1-a276-2af4ea7636bb                FALSE                  FALSE</span>
+<span style=color:green>#&gt;    IsArchived                               UserId  UserName       Roles IsLocked        CreationDate</span>
+<span style=color:green>#&gt; 1:      FALSE 0d169565-df66-48b4-8c93-3375e21de136 Int1_2101 Interviewer    FALSE 2019-07-26 03:16:47</span>
+</code></pre></div><p>To get information about any particular user, you can also use the more general function <em>suso_getUSR</em>.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>usrinfo_int &lt;- suso_getUSR(uid = sv[3, UserId])
+print(usrinfo_int)
+<span style=color:green>#&gt;    IsArchived                               UserId  UserName      Roles IsLocked        CreationDate</span>
+<span style=color:green>#&gt; 1:      FALSE 8f01a8a6-4f7c-49f1-a276-2af4ea7636bb Team_2101 Supervisor    FALSE 2019-07-26 03:15:42</span>
+
+usrinfo_int &lt;- suso_getUSR(uid = int[1, UserId])
+print(usrinfo_int)
+<span style=color:green>#&gt;    IsArchived                               UserId  UserName       Roles IsLocked        CreationDate</span>
+<span style=color:green>#&gt; 1:      FALSE 0d169565-df66-48b4-8c93-3375e21de136 Int1_2101 Interviewer    FALSE 2019-07-26 03:16:47</span>
+</code></pre></div><h2 id=questionnaire>Questionnaire</h2><p>The basic questionnaire API calls are handled through the <em>suso_getQuestDetails</em> function.</p><p>If no input is provided, the function returns a list of all questionnaires on the server:</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>questlist &lt;- suso_getQuestDetails()
+<span style=color:green># print(questlist)</span>
+</code></pre></div><p>Specifying <em>operation.type = status</em>, you receive a list of statuses.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>statlist &lt;- suso_getQuestDetails(operation.type = <span style=color:#a31515>&#34;statuses&#34;</span>)
+print(statlist)
+<span style=color:green>#&gt;  [1] &#34;Restored&#34;               &#34;Created&#34;                &#34;SupervisorAssigned&#34;     &#34;InterviewerAssigned&#34;   </span>
+<span style=color:green>#&gt;  [5] &#34;RejectedBySupervisor&#34;   &#34;ReadyForInterview&#34;      &#34;SentToCapi&#34;             &#34;Restarted&#34;             </span>
+<span style=color:green>#&gt;  [9] &#34;Completed&#34;              &#34;ApprovedBySupervisor&#34;   &#34;RejectedByHeadquarters&#34; &#34;ApprovedByHeadquarters&#34;</span>
+<span style=color:green>#&gt; [13] &#34;Deleted&#34;</span>
+</code></pre></div><p>By taking a particular <em>QuestionnaireId</em> and specifying the *operation.type *you can execute further requests. For example,</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>questionnaire &lt;- suso_getQuestDetails(operation.type = <span style=color:#a31515>&#34;structure&#34;</span>, quid = questlist[2, QuestionnaireId], version = questlist[2, 
+    Version])
+questionnaire &lt;- questionnaire[, .(VariableName, type, QuestionText, Featured, PublicKey)]
+questionnaire &lt;- questionnaire[!is.na(QuestionText)]
+head(questionnaire, 19L)
+<span style=color:green>#&gt;           VariableName                  type</span>
+<span style=color:green>#&gt;  1:   Isl_SupEnum_Dist          TextQuestion</span>
+<span style=color:green>#&gt;  2:          gps_start GpsCoordinateQuestion</span>
+<span style=color:green>#&gt;  3:         date_start      DateTimeQuestion</span>
+<span style=color:green>#&gt;  4:            mainMap          AreaQuestion</span>
+<span style=color:green>#&gt;  5:             id_str      TextListQuestion</span>
+<span style=color:green>#&gt;  6:           date_end      DateTimeQuestion</span>
+<span style=color:green>#&gt;  7:            gps_end GpsCoordinateQuestion</span>
+<span style=color:green>#&gt;  8:          gps_struc GpsCoordinateQuestion</span>
+<span style=color:green>#&gt;  9:            address          TextQuestion</span>
+<span style=color:green>#&gt; 10:             id_dwe      TextListQuestion</span>
+<span style=color:green>#&gt; 11:      Desc_Dwelling          TextQuestion</span>
+<span style=color:green>#&gt; 12:          Bldg_Name          TextQuestion</span>
+<span style=color:green>#&gt; 13: HL1a_PrivDwel_Inst        SingleQuestion</span>
+<span style=color:green>#&gt; 14:   HL1b_InstOn_Prop        SingleQuestion</span>
+<span style=color:green>#&gt; 15:     HL1c_Dwel_Name          TextQuestion</span>
+<span style=color:green>#&gt; 16:       H1_Typ_Dwell        SingleQuestion</span>
+<span style=color:green>#&gt; 17:    HL1a1_Inst_Name          TextQuestion</span>
+<span style=color:green>#&gt; 18:  HL1a2_Type_Instit        SingleQuestion</span>
+<span style=color:green>#&gt; 19:        V1_Vac_Dwel        SingleQuestion</span>
+<span style=color:green>#&gt;                                                                                                                                                                          QuestionText</span>
+<span style=color:green>#&gt;  1:                                                                                                                                  Island-Supervisory District-Enumeration District</span>
+<span style=color:green>#&gt;  2:                                                                                                           I01. &lt;big&gt;GPS&lt;/big&gt; of the &lt;big&gt;START&lt;/big&gt; of the Enumeration District</span>
+<span style=color:green>#&gt;  3:                                                                                                  I02. &lt;big&gt;DATE and TIME&lt;/big&gt; at the &lt;big&gt;START&lt;/big&gt; of Census data collection.</span>
+<span style=color:green>#&gt;  4:                                                                                                                       Please mark all the buildings in your Enumeration District!</span>
+<span style=color:green>#&gt;  5:                                                                                                                                                   Please give the BUILDING number</span>
+<span style=color:green>#&gt;  6:                                                                                                            Q14. &lt;big&gt;DATE AND TIME&lt;/big&gt; OF THE &lt;big&gt;END&lt;/big&gt; OF THE ENUMERATION</span>
+<span style=color:green>#&gt;  7:                                                                                                                      Q13. &lt;big&gt;GPS&lt;/big&gt; AT THE &lt;big&gt;END&lt;/big&gt; OF THE ENUMERATION</span>
+<span style=color:green>#&gt;  8:                                                                                                                      B1. GPS of &lt;font color=&#34;blue&#34;&gt;BUILDING NR. %str_list%&lt;/font&gt;</span>
+<span style=color:green>#&gt;  9:                                                                                                                  B2. Address of &lt;font color=&#34;blue&#34;&gt;BUILDING NR. %str_list%&lt;/font&gt;</span>
+<span style=color:green>#&gt; 10:                                                                                            Serial Number of the DWELLING inside &lt;font color=&#34;blue&#34;&gt;BUILDING NR. %str_list%&lt;/font&gt;</span>
+<span style=color:green>#&gt; 11: Please provide brief description of &lt;font color=&#34;green&#34;&gt;DWELLING NR. %dwe_list%&lt;/font&gt;. (Apt.No., colour, other physical attributes fencing/gates, two-story,duplex.tri-plex etc)</span>
+<span style=color:green>#&gt; 12:                      Please state building name and floor number for &lt;font color=&#34;green&#34;&gt;DWELLING NR. %dwe_list%&lt;/font&gt;: (For highrise buildings only e.g Bayroc, Lucayan Towers)</span>
+<span style=color:green>#&gt; 13:                                                             HL1a. Is &lt;font color=&#34;green&#34;&gt;DWELLING NR. %dwe_list%&lt;/font&gt; a private dwelling, an institution, or a vacant dwelling?</span>
+<span style=color:green>#&gt; 14:                                                               HL1b. Is this private &lt;font color=&#34;green&#34;&gt;DWELLING NR. %dwe_list%&lt;/font&gt; located on the property of an institution?</span>
+<span style=color:green>#&gt; 15:                                                                         HL1c. Give the name of this institution &lt;font color=&#34;green&#34;&gt;DWELLING NR. %dwe_list%&lt;/font&gt; is located on.</span>
+<span style=color:green>#&gt; 16:                                                                                                              H1. What type is &lt;font color=&#34;green&#34;&gt;DWELLING NR. %dwe_list%&lt;/font&gt;?</span>
+<span style=color:green>#&gt; 17:                                                                                                                                         HL1a1. Give the name of this institution.</span>
+<span style=color:green>#&gt; 18:                                                                                                                                         HL1a2. Which type of institution is this?</span>
+<span style=color:green>#&gt; 19:                                                                                        V1. Indicate the status of this vacant &lt;font color=&#34;green&#34;&gt;DWELLING NR. %dwe_list%&lt;/font&gt;.</span>
+<span style=color:green>#&gt;     Featured                            PublicKey</span>
+<span style=color:green>#&gt;  1:     TRUE 9c1df13b-ebd9-c948-c1f6-3d494baed6c7</span>
+<span style=color:green>#&gt;  2:    FALSE a28e8db7-6c8d-41ac-b21f-5fd14263c202</span>
+<span style=color:green>#&gt;  3:    FALSE 72546856-f6eb-4808-99c9-e5c3b8be7f52</span>
+<span style=color:green>#&gt;  4:    FALSE 2a2e758d-6ffb-269a-d713-0727cef6a26c</span>
+<span style=color:green>#&gt;  5:    FALSE 16141bf7-7953-4094-83f0-4a23b0c4af23</span>
+<span style=color:green>#&gt;  6:    FALSE d755aa6a-dae2-4cae-a236-6c916fa6beb6</span>
+<span style=color:green>#&gt;  7:    FALSE 2901b3f6-4eb8-4de9-82dc-fe2e4ceaea10</span>
+<span style=color:green>#&gt;  8:    FALSE 27164c96-3beb-45a1-aa72-82e7f738bf9e</span>
+<span style=color:green>#&gt;  9:    FALSE 3db0373c-324f-a413-de79-55d9fc7d5d5e</span>
+<span style=color:green>#&gt; 10:    FALSE 7753608c-d771-42af-822e-7132e6a5bd61</span>
+<span style=color:green>#&gt; 11:    FALSE a0e8659f-3059-66e6-3f54-f7b1736b4632</span>
+<span style=color:green>#&gt; 12:    FALSE 8c84a470-f87d-bf7d-756b-9d37e5f49f77</span>
+<span style=color:green>#&gt; 13:    FALSE 038e98bc-1b23-076b-23de-52b8114cb69f</span>
+<span style=color:green>#&gt; 14:    FALSE d96bd046-c7be-a174-f52d-ca5dd0b2c74e</span>
+<span style=color:green>#&gt; 15:    FALSE 2458d797-f5a6-d4c7-52dd-020bbc88bf88</span>
+<span style=color:green>#&gt; 16:    FALSE 42ac223f-d5f9-6ff6-a2c2-af4ab55aa446</span>
+<span style=color:green>#&gt; 17:    FALSE eb84fde3-e67f-5511-3d90-7de54766af8c</span>
+<span style=color:green>#&gt; 18:    FALSE 4116e001-ba0d-6ed7-1878-ccc689079874</span>
+<span style=color:green>#&gt; 19:    FALSE f8922061-4b57-a236-cf67-60e4adafdf73</span>
+</code></pre></div><p>Gives you a data.table which contains all the questions, question texts, etc.
+which you can use for further processing i.e to render a user manual with rmarkdown.
+Find details in the manual on questionnaire creation.</p><p>You can also get a list of all interviews done for the specific questionnaire.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>interviews &lt;- suso_getQuestDetails(operation.type = <span style=color:#a31515>&#34;interviews&#34;</span>, quid = questlist[2, QuestionnaireId], version = questlist[2, 
+    Version])
+interviews &lt;- interviews[, .(InterviewId, AssignmentId, ResponsibleId, ErrorsCount, Status)]
+head(interviews, 20L)
+<span style=color:green>#&gt;                              InterviewId AssignmentId                        ResponsibleId ErrorsCount</span>
+<span style=color:green>#&gt;  1: 0870df14-5b3a-431c-a2d9-d59a102d230f          404 d1e57346-b13e-47e8-adc1-aaf647711f47           0</span>
+<span style=color:green>#&gt;  2: e1066cbd-2c04-414d-922c-cc93c9fe333f          404 d1e57346-b13e-47e8-adc1-aaf647711f47           0</span>
+<span style=color:green>#&gt;  3: c84ba723-e19d-48a4-9447-176b22571a5c          267 b1aaf473-14fe-4613-9c66-3185b69b1d11           0</span>
+<span style=color:green>#&gt;  4: 800892cd-bcfd-4667-98dc-8aedee09215b          266 5ac32a2d-20c5-42b6-a30c-89367d9f65d2           0</span>
+<span style=color:green>#&gt;  5: 59547fd9-51ed-4f20-aec7-0b94bcbf3495          267 b1aaf473-14fe-4613-9c66-3185b69b1d11           0</span>
+<span style=color:green>#&gt;  6: 4e33a10a-8e60-4695-8fdf-0ea7dd69505c          404 d1e57346-b13e-47e8-adc1-aaf647711f47           0</span>
+<span style=color:green>#&gt;  7: 7064a70e-2d86-4236-a84b-ad8656d76491          404 d1e57346-b13e-47e8-adc1-aaf647711f47           0</span>
+<span style=color:green>#&gt;  8: 32f6e155-2493-46ea-81ab-c089fb51ff09          266 5ac32a2d-20c5-42b6-a30c-89367d9f65d2           0</span>
+<span style=color:green>#&gt;  9: a8130651-8e45-40d3-9097-246cb20ec867          266 5ac32a2d-20c5-42b6-a30c-89367d9f65d2           0</span>
+<span style=color:green>#&gt; 10: 1fd1fa02-dcf5-464e-ac47-9fcfa56be6be          371 0d169565-df66-48b4-8c93-3375e21de136           0</span>
+<span style=color:green>#&gt; 11: 61e7c5f4-17fa-4b18-92a7-4c3fb8a92867          371 0d169565-df66-48b4-8c93-3375e21de136           0</span>
+<span style=color:green>#&gt; 12: cb422fe2-cafd-4dc2-8f6f-2f9f416e0bb7          371 0d169565-df66-48b4-8c93-3375e21de136           0</span>
+<span style=color:green>#&gt; 13: c4ffdc75-f5a7-4db0-b405-38c42625cb0e          371 0d169565-df66-48b4-8c93-3375e21de136           0</span>
+<span style=color:green>#&gt; 14: 424b668c-ddb3-4d9a-beb3-6609cf46415b          371 0d169565-df66-48b4-8c93-3375e21de136           0</span>
+<span style=color:green>#&gt; 15: b846cc1b-64bc-4c71-9c27-872b1dee8456          266 5ac32a2d-20c5-42b6-a30c-89367d9f65d2           0</span>
+<span style=color:green>#&gt; 16: 16ad3f3b-0a93-42be-b921-d4e68968d715          266 5ac32a2d-20c5-42b6-a30c-89367d9f65d2           0</span>
+<span style=color:green>#&gt; 17: d7f355a6-d213-4373-bc46-debe4044d71c          266 5ac32a2d-20c5-42b6-a30c-89367d9f65d2           0</span>
+<span style=color:green>#&gt; 18: 18a6a7eb-30c9-41e2-a68e-7cdba9a6df17          371 0d169565-df66-48b4-8c93-3375e21de136           0</span>
+<span style=color:green>#&gt; 19: 35d66617-bd38-48e5-9ce8-ea185aa89b4e          371 0d169565-df66-48b4-8c93-3375e21de136           0</span>
+<span style=color:green>#&gt; 20: b2b83f26-e20e-44c8-9fc7-2ddba0fe52e9          353 0d169565-df66-48b4-8c93-3375e21de136           0</span>
+<span style=color:green>#&gt;                  Status</span>
+<span style=color:green>#&gt;  1:           Completed</span>
+<span style=color:green>#&gt;  2: InterviewerAssigned</span>
+<span style=color:green>#&gt;  3:           Completed</span>
+<span style=color:green>#&gt;  4:           Completed</span>
+<span style=color:green>#&gt;  5:           Completed</span>
+<span style=color:green>#&gt;  6:           Completed</span>
+<span style=color:green>#&gt;  7:           Completed</span>
+<span style=color:green>#&gt;  8:           Completed</span>
+<span style=color:green>#&gt;  9:           Completed</span>
+<span style=color:green>#&gt; 10:           Completed</span>
+<span style=color:green>#&gt; 11:           Completed</span>
+<span style=color:green>#&gt; 12:           Completed</span>
+<span style=color:green>#&gt; 13:           Completed</span>
+<span style=color:green>#&gt; 14:           Completed</span>
+<span style=color:green>#&gt; 15:           Completed</span>
+<span style=color:green>#&gt; 16:           Completed</span>
+<span style=color:green>#&gt; 17:           Completed</span>
+<span style=color:green>#&gt; 18:           Completed</span>
+<span style=color:green>#&gt; 19:           Completed</span>
+<span style=color:green>#&gt; 20:           Completed</span>
+</code></pre></div><h2 id=quick-statistics>Quick statistics</h2><p>To monitor variables of interest, you can use the <em>suso_get_stats</em> function.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>statquest &lt;- suso_get_stats(questID = questlist[2, QuestionnaireId], version = questlist[2, Version], qQuest = questionnaire[13, 
+    PublicKey])
+print(statquest)
+<span style=color:green>#&gt;        TEAMS      TEAM MEMBER Private dwelling Institution Vacant dwelling Abandoned/Dilapidated Total</span>
+<span style=color:green>#&gt; 1: All teams All interviewers               90          10               6                    31   137</span>
+<span style=color:green>#&gt; 2: Team_2101        Int1_2101               51           2               2                    29    84</span>
+<span style=color:green>#&gt; 3: Team_2101        Int2_2101               17           3               2                     0    22</span>
+<span style=color:green>#&gt; 4: Team_2101        Int3_2101               12           3               2                     1    18</span>
+<span style=color:green>#&gt; 5: Team_2101        int4_2101               10           2               0                     1    13</span>
+</code></pre></div><h2 id=full-data-export>Full data export</h2><p>To export the data collected in Survey Solutions, you use <em>suso_export</em>.</p><pre><code>#&gt; The last file has been created 5.534 hours ago.[1] &quot;assignment__actions&quot;
+#&gt; [1] 0
+#&gt; [1] &quot;****&quot;
+#&gt; [1] &quot;dwe_list&quot;
+#&gt; [1] 2
+#&gt; [1] &quot;****&quot;
+#&gt; [1] &quot;interview__actions&quot;
+#&gt; [1] 0
+#&gt; [1] &quot;****&quot;
+#&gt; [1] &quot;interview__diagnostics&quot;
+#&gt; [1] 0
+#&gt; [1] &quot;****&quot;
+#&gt; [1] &quot;interview__errors&quot;
+#&gt; [1] 0
+#&gt; [1] &quot;****&quot;
+#&gt; [1] &quot;str_list&quot;
+#&gt; [1] 1
+#&gt; [1] &quot;****&quot;
+</code></pre><p>Its return value is a list with the following elememts: main, R1, R2, R3, with</p><ul><li><strong>main</strong> containing the files: BAH_MiniPilot, interview__comments</li><li><strong>R1</strong> containing all rosters at the first level</li><li><strong>R2</strong> containing all rosters at the second level</li><li><strong>R3</strong> containing all rosters at the third level</li></ul><p>through the harmonized ID, main and rosterfiles can easily be put together. More on this in the specific vignette.</p><h2 id=paradata>Paradata</h2><p>To retrieve the paradata for a particular interview you use <em>suso_export_paradata</em></p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>system.time(para1 &lt;- suso_export_paradata(questID = questlist[2, QuestionnaireId], version = questlist[2, Version], 
+    reloadTimeDiff = 24, onlyActiveEvents = F, allResponses = T))
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; The last file has been created 5 hours ago.</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; Starting download &amp; file extraction. </span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; Calculating Response Timings.</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; Extracting GPS variable.</span>
+<span style=color:green>#&gt; Processing: </span>
+<span style=color:green>#&gt; 	AnswerSet</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	AnswerRemoved</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	ApproveByHeadquarter</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	Restarted</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	Reject</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	QuestionDeclaredInvalid</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	QuestionDeclaredValid</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; Export &amp; Transformation finished.</span>
+<span style=color:green>#&gt;    user  system elapsed </span>
+<span style=color:green>#&gt;   1.244   0.028   0.510</span>
+</code></pre></div><p>This will return a list of data table, separated by events. Please bear in mind, that paradata files can be fairly big, and processing it may require a large working memory. To decrease the load there are also 3 parameters you can change, these are:</p><ul><li><strong>onlyActiveEvents</strong>, if TRUE it processes only the active events initiated by users.</li><li><strong>allResponses</strong>, if FALSE, does not process all response values, nevertheless they are still included in a single column. Otherwise, they are separated by column.</li></ul><p>Running the same call again without passive events and without all responses processed, reduces processing time significantly.</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>system.time(para2 &lt;- suso_export_paradata(questID = questlist[2, QuestionnaireId], version = questlist[2, Version], 
+    reloadTimeDiff = 24, onlyActiveEvents = T, allResponses = F))
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; The last file has been created 5 hours ago.</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; Starting download &amp; file extraction. </span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; Calculating Response Timings.</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; Extracting GPS variable.</span>
+<span style=color:green>#&gt; Processing: </span>
+<span style=color:green>#&gt; 	AnswerSet</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	AnswerRemoved</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	ApproveByHeadquarter</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	Restarted</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; 	Reject</span>
+<span style=color:green>#&gt; </span>
+<span style=color:green>#&gt; Export &amp; Transformation finished.</span>
+<span style=color:green>#&gt;    user  system elapsed </span>
+<span style=color:green>#&gt;   0.908   0.004   0.357</span>
+</code></pre></div><p>As you see from the system timings, changing these parameters reduces
+processing time significantly. More details on how to work with paradata
+can be found in the corresponding vignette. The paradata export is
+returned as a list, with the following elements:</p><ul><li><strong>full data</strong>: KeyAssigned, CommentSet, Completed, AnswerSet, AnswerRemoved,
+Restarted, Reject, QuestionDeclaredInvalid, QuestionDeclaredValid, actionDistr,
+userDistr, roleDistr</li><li><strong>reduced data</strong>: KeyAssigned, CommentSet, Completed, AnswerSet, AnswerRemoved,
+Restarted, Reject, actionDistr, userDistr, roleDistr</li></ul><p>There are also tables already included in the file, like:</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>para2[[<span style=color:#a31515>&#34;userDistr&#34;</span>]]
+<span style=color:green>#&gt;      responsible count</span>
+<span style=color:green>#&gt; 1:                3460</span>
+<span style=color:green>#&gt; 2:     Int1_2101  1025</span>
+<span style=color:green>#&gt; 3:     Int2_2101   305</span>
+<span style=color:green>#&gt; 4:     Int3_2101   250</span>
+<span style=color:green>#&gt; 5:     int4_2101   146</span>
+<span style=color:green>#&gt; 6: bahamaAPI0202    18</span>
+<span style=color:green>#&gt; 7:         admin     5</span>
+</code></pre></div><p>which gives the distribution of events by user, or:</p><div class=highlight><pre style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-r data-lang=r>para2[[<span style=color:#a31515>&#34;actionDistr&#34;</span>]]
+<span style=color:green>#&gt;                      action count</span>
+<span style=color:green>#&gt;  1:   QuestionDeclaredValid  2574</span>
+<span style=color:green>#&gt;  2:               AnswerSet  1482</span>
+<span style=color:green>#&gt;  3:             VariableSet   525</span>
+<span style=color:green>#&gt;  4:                 Resumed   150</span>
+<span style=color:green>#&gt;  5:                  Paused   120</span>
+<span style=color:green>#&gt;  6:               Completed    69</span>
+<span style=color:green>#&gt;  7:    ReceivedBySupervisor    65</span>
+<span style=color:green>#&gt;  8:     InterviewerAssigned    47</span>
+<span style=color:green>#&gt;  9:             KeyAssigned    45</span>
+<span style=color:green>#&gt; 10:      SupervisorAssigned    45</span>
+<span style=color:green>#&gt; 11:   ReceivedByInterviewer    24</span>
+<span style=color:green>#&gt; 12:    RejectedBySupervisor    21</span>
+<span style=color:green>#&gt; 13:           AnswerRemoved    19</span>
+<span style=color:green>#&gt; 14: QuestionDeclaredInvalid    15</span>
+<span style=color:green>#&gt; 15:               Restarted     4</span>
+<span style=color:green>#&gt; 16:              CommentSet     4</span>
+</code></pre></div><p>which gives the distribution by event type.</p><p>We hope that gave you a short overview on the available functions. For more
+details on how to use the output, please read the specific vignettes.</p></div></article></div></main><footer class="footer pt-3 pb-1 px-sm-3 px-lg-0"><div class="container copyright"><div class=float-left>&#169; 2016-2021 The World Bank Group.<br>All rights Reserved. <a href=https://www.worldbank.org/en/about/legal _target=blank>Legal</a><br><a class=text-primary href=/about/ _target=blank><b class=text-primary>About the team</b></a>
+<a class=text-primary href=http://www.capterra.com/p/153927/Survey-Solutions/ target=_blank>Testimonials</a></div></div></footer><script src=https://code.jquery.com/jquery-3.3.1.min.js integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin=anonymous></script><script src=https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js integrity=sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js></script><script src=https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js></script><script src=/js/asearch.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js></script><script>$(document).on('click','[data-toggle="lightbox"]',function(a){a.preventDefault(),$(this).ekkoLightbox({alwaysShowClose:!0})})</script></body></html>

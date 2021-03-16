@@ -1,0 +1,62 @@
+<!doctype html><html lang=en><head><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-129284684-1','auto'),ga('send','pageview'))</script><script async src=https://www.google-analytics.com/analytics.js></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=description content><meta name=keywords content="roster,numeric, list,fixed,multi select,yes/no multi select"><link rel=icon href=/img/favicon/favicon-support-1.png type=image/png sizes=16x16><link rel=icon href=/img/favicon/favicon-support-1-48-win-ico.png type=image/png sizes=48x48><link rel=icon href=/img/favicon/favicon-support-1-158-General-use-iOS-Android.png type=image/png sizes=152x152><link rel=icon href=/img/favicon/favicon-support-1-196-Chrome-for-Android.png type=image/png sizes=196x196><link rel=icon href=/img/favicon/favicon-support-1-558-win10-tile.png type=image/png sizes=558x558><title>Rosters</title><link rel=stylesheet href=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css integrity=sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T crossorigin=anonymous><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel=stylesheet><link href=/css/all.css rel=stylesheet><link href=https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css rel=stylesheet></head><body><header class="px-md-3 pt-3"><div class=container><div class=row><div class="mb-3 col-lg-6 col-md-12"><a class="navbar-brand text-white pr-0 mr-0 float-left" href=https://mysurvey.solutions/ target=_blank><img src=/img/logo.png alt="Survey Solutions" class=float-left>
+<span class="float-left ml-2">Survey<br>Solutions</span></a>
+<a class="navbar-text text-white pl-sm-4 ml-sm-4 pl-2 ml-2 float-left" href=https://docs.mysurvey.solutions/>Documentation and knowledge base</a></div><script type=text/template id=my-custom-menu-template>
+    <div class="aa">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="docs-tab" data-toggle="tab" href="#docs" role="tab" aria-controls="docs" aria-selected="true">Articles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="forum-tab" data-toggle="tab" href="#forum" role="tab" aria-controls="forum" aria-selected="false">Forum topics</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="aa-dataset-docs tab-pane fade show active" id="docs" role="tabpanel" aria-labelledby="docs-tab"></div>
+            <div class="aa-dataset-forum tab-pane fade" id="forum" role="tabpanel" aria-labelledby="forum-tab"></div>
+        </div>
+    </div>
+</script><div class="col-lg-6 col-md-12 pt-2 mb-4 mb-lg-3"><form class=form-inline onsubmit=return!1><div class="input-group search"><input type=text class="form-control w-100" placeholder="Have a Question? Ask or enter a search term here." id=aa-search-input></div></form></div></div></div></header><main class="container mb-3"><nav aria-label=breadcrumb><ol class="breadcrumb bg-transparent pl-0"><li class=breadcrumb-item><a href=/>Home</a></li><li class=breadcrumb-item><a href=/questionnaire-designer/>Questionnaire Designer</a></li><li class=breadcrumb-item><a href=/questionnaire-designer/components/>Questionnaire Components</a></li><li class="breadcrumb-item active" aria-current=page>Rosters</li></ol></nav><div class=mb-4><article class="article d-block w-100"><div class="mb-5 pb-1 d-block w-100 page-title d-flex align-items-end"><h2 class="mb-3 mr-auto pr-3">Rosters</h2><div class="data text-right">June 21, 2016</div></div><div class=article-content><h2 id=roster-properties>Roster properties</h2><p>When you select a roster, you can see its details in the right hand
+panel. Rosters are defined by a set of properties. While some features
+are common to all roster types, others are defined for a specific roster
+source.</p><p>Survey Solutions has 4 roster sources. Three of them depend on the
+question type linked to the roster: <a href=#numeric><em>numeric question</em></a>,
+<a href=#list><em>list question</em></a> and <a href=#multi_select><em>multi-select question</em></a>.
+No question is linked to the fourth roster source: <a href=#fixed%20set%20of%20items><em>fixed set of
+items</em></a>.</p><p>Non-nested rosters can have up to 200 rows.  If there are over 60 rows
+in the roster, the roster can contain up to 500 questions, on the other
+hand if there are more than 60 rows in the roster then the roster cannot
+contain more than 30 questions. This is particularly useful for market
+price and food consumption rosters, which typically have more than 100
+rows on paper, they can now be designed as a single, large roster in
+Survey Solutions.</p><p> </p><h2 id=creating-a-roster>Creating a roster</h2><p><strong>To define the roster type:</strong></p><ol><li>Click on the <em>Roster source</em> dropdown box.</li><li>From the pop-up menu select the roster type by clicking on it.</li></ol><p>The answer to the source question or the number of fixed set of items,
+defines the number of times the questions within the roster are
+repeated. This means that there will be a set of questions for each
+subject (individual, enterprise, crop, land, food item, non-food item,
+etc.). For this reason, a subject id (name, code id, etc.) is needed to
+differentiate the set of questions among the different subjects. The
+subject’s id can either be created automatically during the interview or
+be fixed.</p><p>When creating a roster make sure that you have defined the maximum
+number of answers allowed in the roster source (trigger) question, or in
+other words the maximum number of roster rows that can be created. </p><p> </p><h2 id=roster-types>Roster types</h2><p> </p><h3 id=span-idnumericspannumeric-roster><span id=numeric></span>Numeric roster</h3><p>The roster source is a numeric question. For example, consider the
+following questions:</p><p><em>How many people live in the household?<br>How many partners does the enterprise have?<br>How many lands do you cultivate?<br>How many crops did you harvest in the land?</em></p><p>The total number of household members, partners, lands or crops
+determines how many times the questions within the roster will be
+repeated.</p><p>The pictures below show an example of a numeric roster.</p><p>In Questionnaire Designer:</p><img style=max-width:100%;height:auto src=/questionnaire-designer/components/rosters/images/646131_hu88ec9309f689342c945381f404b54048_47361_800x600_fit_box_2.png width=503 height=504><p>On a tablet:</p><img style=max-width:100%;height:auto src=/questionnaire-designer/components/rosters/images/646132_hu93af1697dbd3958018feb8ba48e0036f_24637_800x600_fit_box_2.png width=422 height=329><p> </p><h3 id=span-idlistspanlist-roster><span id=list></span>List roster</h3><p>The roster source is a list question. <span style=line-height:20.8px>For example, consider the following
+questions:</span></p><p>*List the people living in the household.<br>List the employees working in the enterprise. <br>List the lands you cultivate.<br>List the crops you harvested in the land. *</p><p>The total number of listed household members, employees, lands or crops
+determines how many times the questions within the roster will be
+repeated.</p><p>The pictures below <span style=line-height:20.8px>show an example of
+a list roster. </span></p><p>In Questionnaire Designer:</p><img style=max-width:100%;height:auto src=/questionnaire-designer/components/rosters/images/646139_hu625a75a2c5f3348258c6fa1fe060de00_45219_800x600_fit_box_2.png width=472 height=477><p><span style=line-height:20.8px>On a tablet:</p><p><img style=max-width:100%;height:auto src=/questionnaire-designer/components/rosters/images/646169_hu5bda8780d0a500f1f84b9acdfcd88803_56528_800x600_fit_box_2.png width=576 height=600></span></p><p> </p><h3 id=span-styleline-height-208pxspan-idmulti_selectspanmulti-select-rosterspan><span style=line-height:20.8px><span id=multi_select></span>Multi-select roster</span></h3><p><span style=line-height:20.8px>The roster source question is a
+multi-select question. A multi-select question in yes/no mode may also
+be used as a roster source question. Below are a few examples of
+multi-select questions: </p><p><em>Was [the food items below] purchased in the last week? (in yes/no
+mode)<br>From the listed crops select those cultivated in your land<br>From the listed types of payment, select those accepted by the
+enterprise</em></p><p>The total number of selected food items, crops, or types of payment
+determines how many times the questions within the roster will be
+repeated. In the case of a multi-select question in yes/no mode the
+number of items marked as &ldquo;yes&rdquo; in the multi-select question will
+determine how many times the questions within the roster will be
+repeated.</p><p>The pictures below show an example of multi-select roster.</p><p>In Questionnaire Designer:</p><img style=max-width:100%;height:auto src=/questionnaire-designer/components/rosters/images/646176_hu9cc75858df2abd9ed33dd3747f1e13f9_59970_800x600_fit_box_2.png width=492 height=477><p>On a tablet:</p><img style=max-width:100%;height:auto src=/questionnaire-designer/components/rosters/images/646177_hu63d3a4b8e1e047ff02b6022264b3cce4_48624_800x600_fit_box_2.png width=408 height=481><p>The pictures below show an example of multi-select roster in yes/no
+mode.</p><p>In Questionnaire Designer:</p><img style=max-width:100%;height:auto src=/questionnaire-designer/components/rosters/images/646190_hu6222d191be3b17e6b717f3828a7e08d5_142547_800x600_fit_box_2.png width=613 height=600><p>On a tablet:</p><p><img style=max-width:100%;height:auto src=/questionnaire-designer/components/rosters/images/646192_huf77255260f913ee37de4c536ef08c7dc_68069_800x600_fit_box_2.png width=507 height=600></span></p><p> </p><h3 id=span-styleline-height-208pxspan-idfixed-set-of-itemsspanfixed-set-of-items-rosterspan><span style=line-height:20.8px><span id="fixed set of items"></span>Fixed set of items roster</span></h3><p><span style=line-height:20.8px>In the case of a <em>fixed set of items</em>
+roster*,* the subject ids are the fixed items defined in Questionnaire
+Designer.</p><p>To define them, click on the <em>Add Item</em> link to manually add each
+subject id and code.</p><p><img style=max-width:100%;height:auto src=/questionnaire-designer/components/rosters/images/646179_hu99ddef8f555ad28df9ea0c5e3f3e33d3_35881_800x600_fit_box_2.png width=641 height=341></span></p></div></article></div></main><footer class="footer pt-3 pb-1 px-sm-3 px-lg-0"><div class="container copyright"><div class=float-left>&#169; 2016-2021 The World Bank Group.<br>All rights Reserved. <a href=https://www.worldbank.org/en/about/legal _target=blank>Legal</a><br><a class=text-primary href=/about/ _target=blank><b class=text-primary>About the team</b></a>
+<a class=text-primary href=http://www.capterra.com/p/153927/Survey-Solutions/ target=_blank>Testimonials</a></div></div></footer><script src=https://code.jquery.com/jquery-3.3.1.min.js integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin=anonymous></script><script src=https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js integrity=sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js></script><script src=https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js></script><script src=/js/asearch.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js></script><script>$(document).on('click','[data-toggle="lightbox"]',function(a){a.preventDefault(),$(this).ekkoLightbox({alwaysShowClose:!0})})</script></body></html>
